@@ -15,8 +15,8 @@ class Map {
     let y = view.get().y;
 
     ctx.beginPath();
-    ctx.rect(x - player.size, y - player.size, this.width + (player.size*2), this.height + (player.size*2));
     ctx.lineWidth = 5;
+    ctx.rect(x - player.size - ctx.lineWidth, y - player.size - ctx.lineWidth, this.width + ((player.size + ctx.lineWidth)*2), this.height + ((player.size + ctx.lineWidth)*2));
     ctx.strokeStyle = "black";
     ctx.stroke();
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";

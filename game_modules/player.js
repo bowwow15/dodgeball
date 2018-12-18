@@ -9,6 +9,8 @@ class PlayerModel {
 
     this.speed = 5;
 
+    this.size = 15;
+
     this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
 
     //server-only values
@@ -62,7 +64,8 @@ class PlayerModel {
     return {
       x: this.x,
       y: this.y,
-      color: this.color
+      color: this.color,
+      size: this.size
     }
   }
 }

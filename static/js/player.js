@@ -2,7 +2,7 @@ class Player {
   constructor () {
     this.list = {};
 
-    this.size = 10;
+    this.size = 15;
   }
 
   draw (player, id) {
@@ -15,7 +15,7 @@ class Player {
 
     ctx.fillStyle = player.color;
     ctx.beginPath();
-    ctx.rect(x - 5, y - 5, 10, 10);
+    ctx.arc(x, y, player.size, 0, 2 * Math.PI);
     ctx.fill();
   }
 }
