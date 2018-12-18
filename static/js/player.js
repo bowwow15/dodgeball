@@ -2,7 +2,6 @@ class Player {
   constructor () {
     this.list = {};
 
-    this.speed = 5;
     this.size = 10;
   }
 
@@ -10,8 +9,6 @@ class Player {
     if (id == socket.id) {
       view.centerOnPlayer();
     }
-
-    this.speed = player.speed; //reset player speed from server
 
     let x = player.x + view.get().x;
     let y = player.y + view.get().y;

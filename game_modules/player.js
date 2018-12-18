@@ -62,8 +62,7 @@ class PlayerModel {
     return {
       x: this.x,
       y: this.y,
-      color: this.color,
-      speed: this.speed
+      color: this.color
     }
   }
 }
