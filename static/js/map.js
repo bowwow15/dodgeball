@@ -15,7 +15,7 @@ class Map {
     let y = view.get().y;
 
     ctx.beginPath();
-    ctx.rect(x, y, this.width + player.size, this.height + player.size);
+    ctx.rect(x - player.size, y - player.size, this.width + (player.size*2), this.height + (player.size*2));
     ctx.stroke();
   }
 }
