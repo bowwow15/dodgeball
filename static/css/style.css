@@ -3,4 +3,10 @@
 canvas {
   position: fixed;
   left:0;top:0;
+
+  background: url(/static/img/background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
