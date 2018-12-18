@@ -8,8 +8,11 @@ var server = http.Server(app);
 var io = socketIO(server);
 
 // Game Dependencies
-var player = require('./game_modules/player.js');
-var map = require('./game_modules/map.js');
+global.player = require('./game_modules/player.js');
+global.map = require('./game_modules/map.js');
+
+var player = global.player;
+var map = global.map;
 
 
 //Set port for Heroku
@@ -47,7 +50,7 @@ io.on('connection', function (socket) {
   });
 
   //emit map dimensions
-  socket.emit('map', map);
+  socket.emit('map', global.map);
 });
 
 setInterval(function() {
@@ -64,6 +67,6 @@ setInterval(function() {
 
 setInterval(function() {
   for (var id in player.list) {
-    player.list[id].triggerWhenPressed(map);
+    player.list[id].triggerWhenPressed();
   }
 }, 1000 / 30);

@@ -4,8 +4,8 @@ class PlayerModel {
   constructor (id) {
     this.id = id;
 
-    this.x = 300;
-    this.y = 300;
+    this.x = Math.floor(Math.random()*global.map.width);
+    this.y = Math.floor(Math.random()*global.map.height);
 
     this.speed = 5;
 
@@ -30,7 +30,7 @@ class PlayerModel {
     }
   }
 
-  triggerWhenPressed (map) {
+  triggerWhenPressed () {
     var movement = {x:0, y:0};
 
     if (this.keyW) {movement.y -= this.speed;}
@@ -38,7 +38,7 @@ class PlayerModel {
     if (this.keyS) {movement.y += this.speed;}
     if (this.keyD) {movement.x += this.speed;}
 
-    this.move(movement.x, movement.y, map);
+    this.move(movement.x, movement.y, global.map);
   }
 
   keyEvent (keyCode, bool) {
