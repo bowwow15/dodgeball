@@ -35,7 +35,9 @@ io.on('connection', function (socket) {
   });
 
   socket.on('keypress', function(data) {
-    player.list[socket.id].keyEvent(data.keyCode, data.bool);
+    if (player.list[socket.id]) {
+      player.list[socket.id].keyEvent(data.keyCode, data.bool);
+    }
   });
 
   socket.on('disconnect', function () {
