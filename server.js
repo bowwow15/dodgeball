@@ -23,14 +23,25 @@ server.listen(5000, function() {
 
 
 // Add the WebSocket handlers
-io.on('connection', function(socket) {
-});
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
   socket.on('new player', function() {
     player.new(socket);
   });
+
   socket.on('movement', function(data) {
-    player.move(data, socket);
+    if (player.list[socket.id]) {
+      player.list[socket.id].move(data.x, data.y);
+    }
+  });
+
+  socket.on('disconnect', function () {
+    delete player.list[socket.id];
+
+    console.log("Player " + socket.id + " disconnected.");
   });
 });
+
+setInterval(function() {
+  io.sockets.emit('state', player.list);
+}, 1000 / 60);
