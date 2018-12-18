@@ -25,3 +25,12 @@ server.listen(5000, function() {
 // Add the WebSocket handlers
 io.on('connection', function(socket) {
 });
+
+io.on('connection', function(socket) {
+  socket.on('new player', function() {
+    player.new(socket);
+  });
+  socket.on('movement', function(data) {
+    player.move(data, socket);
+  });
+});
