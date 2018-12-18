@@ -6,9 +6,12 @@ class PlayerModel {
     this.y = 300;
   }
 
-  move (x, y) {
-    this.x += x;
-    this.y += y;
+  move (x, y, map) {
+    //execute player move
+    if (x > 0 && this.x <= map.width) this.x += x;
+    if (x < 0 && this.x >= 0) this.x += x;
+    if (y > 0 && this.y <= map.height) this.y += y;
+    if (y < 0 && this.y >= 0) this.y += y;
   }
 }
 

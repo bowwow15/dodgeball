@@ -9,7 +9,10 @@ var io = socketIO(server);
 
 // Game Dependencies
 var player = require('./game_modules/player.js');
+var map = require('./game_modules/map.js');
 
+
+//Set port for Heroku
 var PORT = process.env.PORT || 5000;
 
 app.set('port', PORT);
@@ -33,7 +36,7 @@ io.on('connection', function (socket) {
 
   socket.on('movement', function(data) {
     if (player.list[socket.id]) {
-      player.list[socket.id].move(data.x, data.y);
+      player.list[socket.id].move(data.x, data.y, map);
     }
   });
 
@@ -42,6 +45,9 @@ io.on('connection', function (socket) {
 
     console.log("Player " + socket.id + " disconnected.");
   });
+
+  //emit map dimensions
+  socket.emit('map', map);
 });
 
 setInterval(function() {
