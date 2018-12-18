@@ -17,6 +17,6 @@ socket.on('state', function (data) {
   for (var id in data) {
     var player_from_server = data[id];
 
-    player.draw(player_from_server.x, player_from_server.y, id);
+    player.draw(player_from_server, id);
   }
 });

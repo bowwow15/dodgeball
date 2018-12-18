@@ -4,6 +4,8 @@ class PlayerModel {
   constructor () {
     this.x = 300;
     this.y = 300;
+
+    this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
   }
 
   move (x, y, map) {

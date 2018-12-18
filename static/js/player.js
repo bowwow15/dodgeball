@@ -6,14 +6,15 @@ class Player {
     this.size = 10;
   }
 
-  draw (x, y, id) {
+  draw (player, id) {
     if (id == socket.id) {
       view.centerOnPlayer();
     }
 
-    x = x + view.get().x;
-    y = y + view.get().y;
+    let x = player.x + view.get().x;
+    let y = player.y + view.get().y;
 
+    ctx.fillStyle = player.color;
     ctx.beginPath();
     ctx.rect(x - 5, y - 5, 10, 10);
     ctx.fill();
