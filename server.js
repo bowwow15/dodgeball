@@ -34,10 +34,8 @@ io.on('connection', function (socket) {
     player.new(socket);
   });
 
-  socket.on('movement', function(data) {
-    if (player.list[socket.id]) {
-      player.list[socket.id].move(data.x, data.y, map);
-    }
+  socket.on('keypress', function(data) {
+    player.list[socket.id].keyEvent(data.keyCode, data.bool);
   });
 
   socket.on('disconnect', function () {
@@ -51,5 +49,19 @@ io.on('connection', function (socket) {
 });
 
 setInterval(function() {
-  io.sockets.emit('state', player.list);
+  var augmentedPlayerList = {};
+
+  for (var id in player.list) {
+    var current_player = player.list[id];
+
+    augmentedPlayerList[id] = current_player.modelForClient();
+  } // get player properties for client
+
+  io.sockets.emit('state', augmentedPlayerList);
 }, 1000 / 60);
+
+setInterval(function() {
+  for (var id in player.list) {
+    player.list[id].triggerWhenPressed(map);
+  }
+}, 1000 / 30);
