@@ -11,6 +11,8 @@ class Player {
       view.centerOnPlayer();
     }
 
+    this.speed = player.speed; //reset player speed from server
+
     let x = player.x + view.get().x;
     let y = player.y + view.get().y;
 

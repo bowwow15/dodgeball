@@ -16,6 +16,8 @@ class Map {
 
     ctx.beginPath();
     ctx.rect(x - player.size, y - player.size, this.width + (player.size*2), this.height + (player.size*2));
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "black";
     ctx.stroke();
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fill();
