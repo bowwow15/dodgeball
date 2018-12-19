@@ -7,3 +7,12 @@ function changeKeyState (event, bool) {
 
 window.addEventListener("keydown", function (event) { changeKeyState(event, true); });
 window.addEventListener("keyup", function (event) { changeKeyState(event, false); });
+
+window.addEventListener("mousedown", function (event) {
+  var angle = 0;
+  angle = Math.atan2(event.clientY - (canvas.height / 2), event.clientX - (canvas.width / 2));
+
+  socket.emit('mousedown', {
+    angle: angle
+  })
+});

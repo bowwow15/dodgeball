@@ -1,8 +1,9 @@
 //player.js
 
 class PlayerModel {
-  constructor (id) {
-    this.id = id;
+  constructor (socket) {
+    this.id = socket.id;
+    this.socket = socket;
 
     this.x = Math.floor(Math.random()*global.map.width);
     this.y = Math.floor(Math.random()*global.map.height);
@@ -76,7 +77,7 @@ class Player {
   }
 
   new (socket) {
-    this.list[socket.id] = new PlayerModel(socket.id);
+    this.list[socket.id] = new PlayerModel(socket);
 
     console.log("Player " + socket.id + " joined.");
   }

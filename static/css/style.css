@@ -4,9 +4,7 @@ canvas {
   position: fixed;
   left:0;top:0;
 
-  background: url(/static/img/background_grid.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: whitesmoke;
+
+  cursor: crosshair;
 }

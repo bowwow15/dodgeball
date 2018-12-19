@@ -5,10 +5,12 @@ var path = require('path');
 var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
-var io = socketIO(server);
+global.io = socketIO(server);
+var io = global.io;
 
 // Game Dependencies
 global.player = require('./game_modules/player.js');
+global.bullet = require('./game_modules/bullet.js');
 global.map = require('./game_modules/map.js');
 
 var player = global.player;
@@ -37,10 +39,14 @@ io.on('connection', function (socket) {
     player.new(socket);
   });
 
-  socket.on('keypress', function(data) {
+  socket.on('keypress', function (data) {
     if (player.list[socket.id]) {
       player.list[socket.id].keyEvent(data.keyCode, data.bool);
     }
+  });
+
+  socket.on('mousedown', function (data) {
+    bullet.new(player.list[socket.id], bullet.current_id, data.angle)
   });
 
   socket.on('disconnect', function () {
@@ -50,7 +56,10 @@ io.on('connection', function (socket) {
   });
 
   //emit map dimensions
-  socket.emit('map', global.map);
+  setInterval(function () {
+    map.update();
+  }, 1000);
+  map.update();
 });
 
 setInterval(function() {
@@ -62,11 +71,21 @@ setInterval(function() {
     augmentedPlayerList[id] = current_player.modelForClient();
   } // get player properties for client
 
-  io.sockets.emit('state', augmentedPlayerList);
+  io.sockets.emit('state', {
+    player: augmentedPlayerList,
+    bullet: bullet.list
+  });
 }, 1000 / 60);
 
 setInterval(function() {
   for (var id in player.list) {
     player.list[id].triggerWhenPressed();
+  }
+
+  for (var id in bullet.list) {
+    var current_bullet = bullet.list[id].step();
+    if (current_bullet == false) {
+      delete bullet.list[id];
+    }
   }
 }, 1000 / 30);
