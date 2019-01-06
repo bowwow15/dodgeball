@@ -33,8 +33,12 @@ class Map {
     // undo offset
     ctx.translate(-offset_x, -offset_y);
 
+    //draw black tint
+    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     //draw box for map
-    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
     ctx.beginPath();
     ctx.lineWidth = 5;
