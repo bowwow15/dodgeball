@@ -16,7 +16,7 @@ class PlayerModel {
 
     this.size = 15;
 
-    this.score = 3;
+    this.score = 5;
 
     this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
 
