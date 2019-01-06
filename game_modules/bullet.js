@@ -1,7 +1,8 @@
 class Bullet {
-  constructor (player, angle, speed = 15) {
+  constructor (player, angle, speed = 15, color = "black") {
     this.rotation = angle;
     this.speed = 40;
+    this.color = color;
 
     if (player) {
       this.x = player.x;
@@ -68,9 +69,9 @@ class Bullet {
 module.exports = {
   list: {},
   current_id: 0,
-  new: function (player, id, angle) {
+  new: function (player, id, angle, speed, color) {
     if (player) {
-      this.list[id] = new Bullet(player, angle);
+      this.list[id] = new Bullet(player, angle, speed, color);
       this.current_id += 1;
     }
   }

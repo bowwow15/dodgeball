@@ -11,8 +11,8 @@ class Bullet {
     let lastX = bullet_from_server.lastX + view.get().x;
     let lastY = bullet_from_server.lastY + view.get().y;
 
-    ctx.fillStyle = "black";
-    ctx.strokeStyle = "rgba(0,0,0,0.7)";
+    ctx.fillStyle = bullet_from_server.color;
+    ctx.strokeStyle = bullet_from_server.color;
 
     //draw trail of bullet
     ctx.lineWidth = bullet_from_server.size;

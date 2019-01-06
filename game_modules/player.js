@@ -75,17 +75,19 @@ class PlayerModel {
   }
 
   die (id) {
-    module.exports.list[id].socket.emit('dead');
-    console.log("Player " + id + " died.");
-    module.exports.die(id);
+    if (!module.exports.list[id].admin) {
+      module.exports.list[id].socket.emit('dead');
+      console.log("Player " + id + " died.");
+      module.exports.die(id);
+    }
   }
 
   shoot (data) {
     if (this.score < 1) {
       this.die(this.id);
     }
-    
-    bullet.new(this, bullet.current_id, data.angle);
+
+    bullet.new(this, bullet.current_id, data.angle, 15, this.color);
     this.score -= 1;
   }
 
