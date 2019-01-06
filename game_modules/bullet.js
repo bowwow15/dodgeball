@@ -46,12 +46,11 @@ class Bullet {
 
         if (bool_collision) {
           if (id != this.player_id && global.player.list[id].admin == false) {
-            global.player.list[id].socket.emit('dead');
-            console.log("Player " + id + " died.");
-            delete global.player.list[id];
+            global.player.list[this.player_id].score += global.player.list[id].score;
+            global.player.list[this.player_id].die(id);
 
             //add kills
-            global.player.list[this.player_id].kills += 1;
+            global.player.list[this.player_id].score += 1;
           }
         }
       }

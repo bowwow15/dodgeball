@@ -29,7 +29,7 @@ class Player {
     ctx.textAlign = "center";
     ctx.fillStyle = "black";
     ctx.font = "15px Arial";
-    ctx.fillText(player.kills.toString(), x, y + 5);
+    ctx.fillText(player.score.toString(), x, y + 5);
   }
 }
 

@@ -5,6 +5,8 @@ class PlayerModel {
     this.id = socket.id;
     this.socket = socket;
 
+    this.alive = true;
+
     this.admin = is_admin;
 
     this.x = Math.floor(Math.random()*global.map.width);
@@ -14,7 +16,7 @@ class PlayerModel {
 
     this.size = 15;
 
-    this.kills = 0;
+    this.score = 10;
 
     this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
 
@@ -72,6 +74,21 @@ class PlayerModel {
     }
   }
 
+  die (id) {
+    module.exports.list[id].socket.emit('dead');
+    console.log("Player " + id + " died.");
+    module.exports.die(id);
+  }
+
+  shoot (data) {
+    bullet.new(this, bullet.current_id, data.angle);
+    this.score -= 1;
+
+    if (this.score < 1) {
+      this.die(this.id);
+    }
+  }
+
   becomeAdmin () {
     console.log("Player " + this.id + " is admin.");
     this.admin = true;
@@ -81,7 +98,7 @@ class PlayerModel {
     return {
       x: this.x,
       y: this.y,
-      kills: this.kills,
+      score: this.score,
       color: this.color,
       size: this.size
     }
@@ -91,6 +108,10 @@ class PlayerModel {
 class Player {
   constructor () {
     this.list = {};
+  }
+
+  die (id) {
+    delete this.list[id];
   }
 
   new (socket) {
