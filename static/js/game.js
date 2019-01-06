@@ -41,6 +41,7 @@ function startGame () {
   });
 
   socket.on('dead', function () {
+    spriteList["deathSound"].play();
     $("#death_screen").fadeIn(3000);
   });
 }

@@ -8,7 +8,7 @@ class Sprite {
     this.image.src = src;
 
     this.image.onload = function () {
-      loadedPercentage += 1 / spritesToLoad.length;
+      loadedPercentage += 1 / imageSpriteLength.length;
       if (loadedPercentage >= 1) {
         startGame();
       }
@@ -16,19 +16,56 @@ class Sprite {
   }
 }
 
+class SoundSprite {
+  constructor (src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+  }
+
+  play () {
+    this.sound.cloneNode().play();
+  }
+}
+
 var spriteList = {};
 
-function addSprite (name, src) {
-  spriteList[name] = new Sprite(src);
+function addSprite (name, src, type) {
+  switch (type) {
+    case "image":
+    spriteList[name] = new Sprite(src);
+    break;
+    case "sound":
+    spriteList[name] = new SoundSprite(src);
+    break;
+  }
 }
 
 var spritesToLoad = [
   {
     name: "hexPatternImg",
-    src: "/static/img/background_grid.jpg"
-  }
+    src: "/static/img/background_grid.jpg",
+    type: "image"
+  }, {
+    name: "deathSound",
+    src: "/static/sound/death.mp3",
+    type: "sound"
+  }, {
+    name: "shootSound",
+    src: "/static/sound/throw.mp3",
+    type: "sound"
+  },
 ];
 
+function filter_sprites(sprite) {
+    return sprite.type == "image";
+}
+
+var imageSpriteLength = spritesToLoad.filter(filter_sprites);
+
 spritesToLoad.forEach(function (element, index) {
-  addSprite(element.name, element.src);
+  addSprite(element.name, element.src, element.type);
 });

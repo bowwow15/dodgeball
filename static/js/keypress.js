@@ -14,5 +14,7 @@ window.addEventListener("mousedown", function (event) {
 
   socket.emit('mousedown', {
     angle: angle
-  })
+  });
+
+  spriteList["shootSound"].play();
 });
