@@ -8,3 +8,21 @@ canvas {
 
   cursor: crosshair;
 }
+
+#loading_screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: black;
+  color: white;
+
+  z-index: 100;
+}
+
+#loading_text {
+  color: white;
+  font-size: 3em;
+  text-align: center;
+  margin-top: 25%;
+  vertical-align: middle;
+}

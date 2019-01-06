@@ -1,6 +1,9 @@
 var socket = io();
 
 function startGame () {
+  //hide loading screen
+  document.getElementById("loading_screen").style.display = "none";
+
   socket.on('message', function(data) {
     console.log(data);
   });
