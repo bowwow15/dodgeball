@@ -1,5 +1,15 @@
 * {margin: 0px;}
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 html {
   background-color: black;
 }
@@ -13,11 +23,11 @@ canvas {
   cursor: crosshair;
 }
 
-#loading_screen {
+#loading_screen, #death_screen {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0,0,0,0.85);
   color: white;
 
   z-index: 100;
@@ -29,4 +39,22 @@ canvas {
   text-align: center;
   margin-top: 25%;
   vertical-align: middle;
+}
+
+#death_text {
+  color: red;
+  font-size: 3em;
+  text-align: center;
+  margin-top: 20%;
+  vertical-align: middle;
+}
+
+.tryAgainButton {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+} .tryAgainButton:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }

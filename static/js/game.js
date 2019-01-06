@@ -41,6 +41,6 @@ function startGame () {
   });
 
   socket.on('dead', function () {
-    alert("ur dead lmao");
+    $("#death_screen").fadeIn(3000);
   });
 }
