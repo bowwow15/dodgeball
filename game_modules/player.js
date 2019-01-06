@@ -81,11 +81,11 @@ class PlayerModel {
   }
 
   shoot (data) {
-    bullet.new(this, bullet.current_id, data.angle);
-    this.score -= 1;
-
-    if (this.score < 1) {
+    if (this.score < 0) {
       this.die(this.id);
+    } else {
+      bullet.new(this, bullet.current_id, data.angle);
+      this.score -= 1;
     }
   }
 
