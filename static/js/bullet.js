@@ -15,7 +15,7 @@ class Bullet {
     ctx.strokeStyle = "rgba(0,0,0,0.7)";
 
     //draw trail of bullet
-    ctx.lineWidth = 3;
+    ctx.lineWidth = bullet_from_server.size;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);

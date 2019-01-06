@@ -21,12 +21,15 @@ class Bullet {
   }
 
   checkCollision (a, b) {
-    return !(
-        ((a.y + a.height) < (b.y)) ||
-        (a.y > (b.y + b.height)) ||
-        ((a.x + a.width) < b.x) ||
-        (a.x > (b.x + b.width))
-    );
+    var dx = a.x - b.x;
+    var dy = a.y - b.y;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < a.radius + b.radius) {
+        return true;
+    } else {
+      return false;
+    }
   }
 
   step () {
@@ -39,7 +42,9 @@ class Bullet {
       //check player collision
       for (var id in global.player.list) {
         var player = global.player.list[id];
-        if (this.lastX != this.x && this.lastY != this.y && this.checkCollision({x: player.x, y: player.y, width: player.width, height: player.height}, {x: this.x, y: this.y, width: this.size, height: this.size})) {
+        let bool_collision = this.checkCollision({x: player.x, y: player.y, radius: player.size}, {x: this.x, y: this.y, radius: this.size});
+
+        if (bool_collision) {
           if (id != this.player_id) {
             global.player.list[id].socket.emit('dead');
             console.log("Player " + id + " died.");
