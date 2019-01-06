@@ -12,8 +12,6 @@ class Player {
 
     let x = player.x + view.get().x;
     let y = player.y + view.get().y;
-    let lastX = player.lastX + view.get().x;
-    let lastY = player.lastY + view.get().y;
 
     ctx.lineWidth = 4;
 

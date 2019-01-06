@@ -1,15 +1,14 @@
 //player.js
 
 class PlayerModel {
-  constructor (socket) {
+  constructor (socket, is_admin = false) {
     this.id = socket.id;
     this.socket = socket;
 
+    this.admin = is_admin;
+
     this.x = Math.floor(Math.random()*global.map.width);
     this.y = Math.floor(Math.random()*global.map.height);
-
-    this.lastX = this.x;
-    this.lastY = this.y;
 
     this.speed = 5;
 
@@ -31,10 +30,15 @@ class PlayerModel {
     if (Math.abs(x) > this.speed || Math.abs(y) > this.speed) {
       console.log("Player " + this.id + " moved too fast.");
     } else {
-      if (x > 0 && this.x <= map.width) this.x += x;
-      if (x < 0 && this.x >= 0) this.x += x;
-      if (y > 0 && this.y <= map.height) this.y += y;
-      if (y < 0 && this.y >= 0) this.y += y;
+      if (this.admin) {
+        this.x += x;
+        this.y += y;
+      } else {
+        if (x > 0 && this.x <= map.width) this.x += x;
+        if (x < 0 && this.x >= 0) this.x += x;
+        if (y > 0 && this.y <= map.height) this.y += y;
+        if (y < 0 && this.y >= 0) this.y += y;
+      }
     }
   }
 
@@ -66,12 +70,15 @@ class PlayerModel {
     }
   }
 
+  becomeAdmin () {
+    console.log("Player " + this.id + " is admin.");
+    this.admin = true;
+  }
+
   modelForClient () { // values to pass to client
     return {
       x: this.x,
       y: this.y,
-      lastX: this.lastX,
-      lastY: this.lastY,
       color: this.color,
       size: this.size
     }

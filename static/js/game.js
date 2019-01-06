@@ -8,7 +8,14 @@ function startGame () {
     console.log(data);
   });
 
-  socket.emit('new player');
+  socket.emit('new_player');
+
+  socket.on('player_accepted', function () {
+    if (html_admin_file) {
+      var admin_password = prompt("ADMIN LOGIN");
+      socket.emit("admin_password", admin_password);
+    }
+  });
 
   socket.on('map', function (data) {
     map.update(data);

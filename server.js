@@ -13,6 +13,8 @@ global.player = require('./game_modules/player.js');
 global.bullet = require('./game_modules/bullet.js');
 global.map = require('./game_modules/map.js');
 
+global.admin_password = require('./admin_data/password.js');
+
 var player = global.player;
 var map = global.map;
 
@@ -26,6 +28,10 @@ app.use('/static', express.static(__dirname + '/static'));
 app.get('/', function(request, response) {
   response.sendFile(path.join(__dirname, '/static/index.html'));
 });
+app.get('/admin', function(request, response) {
+  response.sendFile(path.join(__dirname, '/static/index_admin.html'));
+});
+
 // Starts the server.
 server.listen(PORT, function() {
   console.log('Starting server on port ' + PORT);
@@ -35,8 +41,18 @@ server.listen(PORT, function() {
 // Add the WebSocket handlers
 
 io.on('connection', function (socket) {
-  socket.on('new player', function() {
+  socket.on('new_player', function() {
     player.new(socket);
+    socket.emit('player_accepted');
+  });
+
+  socket.on("admin_password", function (password) {
+    if (password == global.admin_password) {
+      player.list[socket.id].becomeAdmin();
+      socket.emit('server_alert', "Access granted");
+    } else {
+      socket.emit('server_alert', "Access denied");
+    }
   });
 
   socket.on('keypress', function (data) {
