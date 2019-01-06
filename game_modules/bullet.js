@@ -49,6 +49,9 @@ class Bullet {
             global.player.list[id].socket.emit('dead');
             console.log("Player " + id + " died.");
             delete global.player.list[id];
+
+            //add kills
+            global.player.list[this.player_id].kills += 1;
           }
         }
       }

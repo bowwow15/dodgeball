@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('mousedown', function (data) {
-    bullet.new(player.list[socket.id], bullet.current_id, data.angle)
+    bullet.new(player.list[socket.id], bullet.current_id, data.angle);
   });
 
   socket.on('disconnect', function () {

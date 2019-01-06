@@ -1,3 +1,3 @@
-socket.on('server_alert', function (alert) {
-  alert(alert);
+socket.on('server_alert', function (server_alert) {
+  alert(server_alert);
 });

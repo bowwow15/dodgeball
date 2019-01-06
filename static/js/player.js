@@ -23,6 +23,13 @@ class Player {
     ctx.beginPath();
     ctx.arc(x, y, player.size, 0, 2 * Math.PI);
     ctx.fill();
+
+    //draw kills
+    ctx.beginPath();
+    ctx.textAlign = "center";
+    ctx.fillStyle = "black";
+    ctx.font = "15px Arial";
+    ctx.fillText(player.kills.toString(), x, y + 5);
   }
 }
 

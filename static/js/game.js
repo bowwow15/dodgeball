@@ -29,7 +29,6 @@ function startGame () {
 
     for (var id in data.bullet) {
       var bullet_from_server = data.bullet[id];
-      console.log(bullet_from_server);
 
       bullet.draw(bullet_from_server, id);
     }
