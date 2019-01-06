@@ -2,7 +2,7 @@ var socket = io();
 
 function startGame () {
   //hide loading screen
-  document.getElementById("loading_screen").style.display = "none";
+  $("#loading_screen").fadeOut(1500);
 
   socket.on('message', function(data) {
     console.log(data);
