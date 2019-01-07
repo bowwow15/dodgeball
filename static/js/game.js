@@ -3,6 +3,8 @@ var socket = io();
 var gameRunning = false;
 
 function showLogin () {
+  $("#username").focus(); //firefox
+
   var storedUsername = window.localStorage.getItem('username');
   if (storedUsername) {
     $("#username").val(storedUsername);
