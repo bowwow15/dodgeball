@@ -3,6 +3,11 @@ var socket = io();
 var gameRunning = false;
 
 function showLogin () {
+  var storedUsername = window.localStorage.getItem('username');
+  if (storedUsername) {
+    $("#username").val(storedUsername);
+  }
+
   //hide loading screen
   $("#loading_screen").fadeOut(1500);
 
@@ -39,6 +44,7 @@ function enterUsername () {
   var username = $("#username").val();
 
   if (username.length > 0) {
+    window.localStorage.setItem('username', username);
     startGame(username);
     $("#username").blur();
     $("#username").fadeOut(500);
