@@ -49,6 +49,20 @@ canvas {
   vertical-align: middle;
 }
 
+#username {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 12px;
+  font-size: 2em;
+  border: 0px;
+  border-radius: 5px;
+
+  z-index: 200;
+}
+
 .tryAgainButton {
   color: white;
   text-decoration: none;

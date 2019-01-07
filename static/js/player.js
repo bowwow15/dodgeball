@@ -30,6 +30,18 @@ class Player {
     ctx.fillStyle = "black";
     ctx.font = "15px Arial";
     ctx.fillText(player.score.toString(), x, y + 5);
+
+    //draw username if mouse over
+    var dx = x - Mouse.x;
+    var dy = y - Mouse.y;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < player.size + 1) {
+        //draw username
+        ctx.font = "25px Arial";
+        ctx.beginPath();
+        ctx.fillText(player.username, x, y - player.size - 10);
+    }
   }
 }
 

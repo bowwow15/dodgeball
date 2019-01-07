@@ -1,21 +1,15 @@
 var socket = io();
 
-function startGame () {
+var gameRunning = false;
+
+function showLogin () {
   //hide loading screen
   $("#loading_screen").fadeOut(1500);
 
-  socket.on('message', function(data) {
-    console.log(data);
-  });
+  window.setTimeout(function () {
+    $("#username").fadeIn(500);
+  }, 1000);
 
-  socket.emit('new_player');
-
-  socket.on('player_accepted', function () {
-    if (html_admin_file) {
-      var admin_password = prompt("ADMIN LOGIN");
-      socket.emit("admin_password", admin_password);
-    }
-  });
 
   socket.on('map', function (data) {
     map.update(data);
@@ -38,6 +32,33 @@ function startGame () {
 
       player.draw(player_from_server, id);
     }
+  });
+}
+
+function enterUsername () {
+  var username = $("#username").val();
+
+  if (username.length > 0) {
+    startGame(username);
+    $("#username").blur();
+    $("#username").fadeOut(500);
+  }
+}
+
+function startGame (username) {
+  socket.on('message', function(data) {
+    console.log(data);
+  });
+
+  socket.emit('new_player', {username: username});
+
+  socket.on('player_accepted', function () {
+    if (html_admin_file) {
+      var admin_password = prompt("ADMIN LOGIN");
+      socket.emit("admin_password", admin_password);
+    }
+
+    gameRunning = true;
   });
 
   socket.on('dead', function () {

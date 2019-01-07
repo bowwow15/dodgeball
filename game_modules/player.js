@@ -1,13 +1,15 @@
 //player.js
 
 class PlayerModel {
-  constructor (socket, is_admin = false) {
+  constructor (socket, username) {
     this.id = socket.id;
     this.socket = socket;
 
+    this.username = username;
+
     this.alive = true;
 
-    this.admin = is_admin;
+    this.admin = false;
 
     this.x = Math.floor(Math.random()*global.map.width);
     this.y = Math.floor(Math.random()*global.map.height);
@@ -98,6 +100,7 @@ class PlayerModel {
 
   modelForClient () { // values to pass to client
     return {
+      username: this.username,
       x: this.x,
       y: this.y,
       score: this.score,
@@ -116,10 +119,10 @@ class Player {
     delete this.list[id];
   }
 
-  new (socket) {
-    this.list[socket.id] = new PlayerModel(socket);
+  new (socket, username) {
+    this.list[socket.id] = new PlayerModel(socket, username);
 
-    console.log("Player " + socket.id + " joined.");
+    console.log("Player " + socket.id + " joined. AKA, " + username);
   }
 }
 

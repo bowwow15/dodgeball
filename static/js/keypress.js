@@ -16,5 +16,16 @@ window.addEventListener("mousedown", function (event) {
     angle: angle
   });
 
-  spriteList["shootSound"].play();
+  if (gameRunning) {
+    socket.emit('sound_effect', "shootSound");
+  }
 });
+
+var Mouse = {
+  x: 0, y: 0
+};
+
+window.addEventListener("mousemove", function (event) {
+  Mouse.x = event.clientX;
+  Mouse.y = event.clientY;
+})

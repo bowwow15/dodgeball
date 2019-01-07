@@ -41,8 +41,8 @@ server.listen(PORT, function() {
 // Add the WebSocket handlers
 
 io.on('connection', function (socket) {
-  socket.on('new_player', function() {
-    player.new(socket);
+  socket.on('new_player', function (data) {
+    player.new(socket, data.username);
     socket.emit('player_accepted');
   });
 
@@ -63,6 +63,10 @@ io.on('connection', function (socket) {
 
   socket.on('mousedown', function (data) {
     if (player.list[socket.id]) player.list[socket.id].shoot(data);
+  });
+
+  socket.on('sound_effect', function (sound_effect) {
+    io.emit('sound_effect', sound_effect);
   });
 
   socket.on('disconnect', function () {

@@ -10,7 +10,7 @@ class Sprite {
     this.image.onload = function () {
       loadedPercentage += 1 / imageSpriteLength.length;
       if (loadedPercentage >= 1) {
-        startGame();
+        showLogin();
       }
     }
   }
@@ -30,6 +30,9 @@ class SoundSprite {
     this.sound.cloneNode().play();
   }
 }
+socket.on('sound_effect', function (sound_effect) {
+  spriteList[sound_effect].play();
+});
 
 var spriteList = {};
 
