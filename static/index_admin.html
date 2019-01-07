@@ -13,7 +13,14 @@
     html_admin_file = true;
     </script>
 
-    <div id="loading_screen"><div id="loading_text">LOADING</div></div>
+    <div id="loading_screen" class="noselect"><div id="loading_text">LOADING</div></div>
+    <div id="death_screen" class="noselect" style="display: none;"><div id="death_text">YOU'RE OUT<br><a href="" class="tryAgainButton">TRY AGAIN</a></div></div>
+
+    <center>
+      <form action="javascript:enterUsername()">
+        <input autofocus id="username" placeholder="Enter a Name" style="display: none;">
+      </form>
+    </center>
 
     <canvas id="canvas"></canvas>
     <script src="/static/js/map.js"></script>
