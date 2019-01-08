@@ -1,5 +1,6 @@
 class Bullet {
-  constructor (player, angle, speed = 15, color = "black") {
+  constructor (player, angle, speed = 15, color = "black", room) {
+    this.room = room;
     this.rotation = angle;
     this.speed = 40;
     this.color = color;
@@ -67,8 +68,21 @@ module.exports = {
   current_id: 0,
   new: function (player, id, angle, speed, color) {
     if (player) {
-      this.list[id] = new Bullet(player, angle, speed, color);
+      var room = player.room;
+      this.list[id] = new Bullet(player, angle, speed, color, room);
       this.current_id += 1;
     }
+  },
+
+  getList: function (room) {
+    var bulletList = {};
+
+    for (var id in this.list) {
+      if (this.list[id].room == room) {
+        bulletList[id] = this.list[id];
+      }
+    }
+
+    return bulletList;
   }
 };

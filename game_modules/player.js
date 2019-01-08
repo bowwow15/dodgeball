@@ -1,9 +1,11 @@
 //player.js
 
 class PlayerModel {
-  constructor (socket, username) {
+  constructor (socket, username, room) {
     this.id = socket.id;
     this.socket = socket;
+
+    this.room = room;
 
     this.username = username;
 
@@ -78,9 +80,11 @@ class PlayerModel {
 
   die (id) {
     if (!module.exports.list[id].admin) {
-      module.exports.list[id].socket.emit('dead');
-      console.log("Player " + id + " died.");
-      module.exports.die(id);
+      global.room.list[module.exports.list[id].room].occupants -= 1; //remove from room
+
+      module.exports.list[id].socket.emit('dead'); //emit to client
+      console.log("Player " + id + " died."); //console
+      module.exports.die(id); //delete from list
     }
   }
 
@@ -125,9 +129,25 @@ class Player {
   }
 
   new (socket, username) {
-    this.list[socket.id] = new PlayerModel(socket, username);
+    global.room.newPlayer(); //lets room controller know when to create new room
+    let room = global.room.getCurrent();
+    this.list[socket.id] = new PlayerModel(socket, username, room);
 
-    console.log("Player " + socket.id + " joined. AKA, " + username);
+    console.log("Player " + socket.id + ", AKA " + username + " joined.");
+  }
+
+
+  getStateForClient (room) {
+    var augmentedPlayerList = {};
+
+    for (var id in this.list) {
+      var current_player = this.list[id];
+      if (current_player.room == room) {
+        augmentedPlayerList[id] = current_player.modelForClient();
+      }
+    } // get player properties for client
+
+    return augmentedPlayerList;
   }
 }
 

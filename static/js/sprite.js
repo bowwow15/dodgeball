@@ -30,8 +30,11 @@ class SoundSprite {
     this.sound.cloneNode().play();
   }
 }
-socket.on('sound_effect', function (sound_effect) {
-  spriteList[sound_effect].play();
+
+socket.on('sound_effect', function (data) {
+  if (data.room == Game.room) {
+    spriteList[data.sound_effect].play();
+  }
 });
 
 var spriteList = {};

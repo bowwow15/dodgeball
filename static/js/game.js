@@ -2,6 +2,10 @@ var socket = io();
 
 var gameRunning = false;
 
+var Game = {
+  room: 0,
+};
+
 function showLogin () {
   $("#username").focus(); //firefox
 
@@ -17,27 +21,34 @@ function showLogin () {
     $("#username").fadeIn(500);
   }, 1000);
 
+  socket.on('room', function (room) {
+    Game.room = room;
+  });
 
   socket.on('map', function (data) {
     map.update(data);
   });
 
   socket.on('state', function (data) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    map.draw();
+    if (gameRunning == false || data.room == Game.room) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      map.draw();
 
-    player.list = data.player;
+      player.list = data.player;
 
-    for (var id in data.bullet) {
-      var bullet_from_server = data.bullet[id];
+      for (var id in data.bullet) {
+        var bullet_from_server = data.bullet[id];
 
-      bullet.draw(bullet_from_server, id);
-    }
+        bullet.draw(bullet_from_server, id);
+      }
 
-    for (var id in data.player) {
-      var player_from_server = data.player[id];
+      for (var id in data.player) {
+        var player_from_server = data.player[id];
 
-      player.draw(player_from_server, id);
+        player.draw(player_from_server, id);
+      }
+
+      room.drawNumber(data.room);
     }
   });
 }

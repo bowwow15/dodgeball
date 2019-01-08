@@ -12,11 +12,13 @@ var io = global.io;
 global.player = require('./game_modules/player.js');
 global.bullet = require('./game_modules/bullet.js');
 global.map = require('./game_modules/map.js');
+global.room = require('./game_modules/room.js');
 
 global.admin_password = require('./admin_data/password.js');
 
 var player = global.player;
 var map = global.map;
+var room = global.room;
 
 
 //Set port for Heroku
@@ -37,6 +39,9 @@ server.listen(PORT, function() {
   console.log('Starting server on port ' + PORT);
 });
 
+// create new room
+global.room.new();
+
 
 // Add the WebSocket handlers
 
@@ -44,6 +49,7 @@ io.on('connection', function (socket) {
   socket.on('new_player', function (data) {
     player.new(socket, data.username);
     socket.emit('player_accepted');
+    socket.emit('room', global.room.current);
   });
 
   socket.on("admin_password", function (password) {
@@ -66,7 +72,12 @@ io.on('connection', function (socket) {
   });
 
   socket.on('sound_effect', function (sound_effect) {
-    io.emit('sound_effect', sound_effect);
+    if (global.player.list[socket.id]) {
+      io.emit('sound_effect', {
+        room: global.player.list[socket.id].room,
+        sound_effect: sound_effect
+      });
+    }
   });
 
   socket.on('disconnect', function () {
@@ -82,19 +93,16 @@ io.on('connection', function (socket) {
   map.update();
 });
 
+// EMIT GAME STATE
 setInterval(function() {
-  var augmentedPlayerList = {};
-
-  for (var id in player.list) {
-    var current_player = player.list[id];
-
-    augmentedPlayerList[id] = current_player.modelForClient();
-  } // get player properties for client
-
-  io.sockets.emit('state', {
-    player: augmentedPlayerList,
-    bullet: bullet.list
-  });
+  for (var id in global.room.list) {
+    var room = id;
+    io.sockets.emit('state', {
+      room: room,
+      player: player.getStateForClient(room),
+      bullet: bullet.getList(room)
+    });
+  }
 }, 1000 / 60);
 
 setInterval(function() {
