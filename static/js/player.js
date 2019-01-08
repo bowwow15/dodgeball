@@ -50,7 +50,7 @@ class Player {
         ctx.font = "25px Arial";
         ctx.fillStyle = "green";
         ctx.beginPath();
-        ctx.fillText(player.username, x, y - player.size - 10);
+        ctx.fillText(player.username, x, y - player.size - 30);
     }
 
     ctx.globalAlpha = Game.motionBlur;
