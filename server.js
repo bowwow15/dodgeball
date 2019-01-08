@@ -103,7 +103,7 @@ setInterval(function() {
       bullet: bullet.getList(room)
     });
   }
-}, 1000 / 60);
+}, 1000 / 30);
 
 setInterval(function() {
   for (var id in player.list) {
