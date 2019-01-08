@@ -56,6 +56,10 @@ class Bullet {
                 room: global.player.list[this.player_id].room
               });
             }
+            let killerUsername = null;
+            if (global.player.list[this.player_id]) {
+              killerUsername = global.player.list[this.player_id].username;
+            }
             global.player.list[id].die(id, global.player.list[this.player_id].username); //kill player, and send username of killer
           }
         }
