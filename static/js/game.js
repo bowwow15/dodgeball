@@ -95,7 +95,7 @@ function startGame (username) {
 
   socket.on('dead', function (data) {
     if (data.killer != null) {
-      $("#killer").html(data.killer + " killed you.")
+      $("#killer").html(data.killer + " tagged you.")
     }
     spriteList["deathSound"].play();
     $("#death_screen").fadeIn(3000);
