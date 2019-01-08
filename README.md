@@ -2,4 +2,4 @@
 
 Online dodgeball game using Node.js
 
-Demo: dodgeball.xyz
+Demo: http://dodgeball.xyz
