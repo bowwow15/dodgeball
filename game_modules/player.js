@@ -10,7 +10,7 @@ class PlayerModel {
     this.username = username;
 
     this.alive = true;
-
+    this.king = false;
     this.admin = false;
 
     this.x = Math.floor(Math.random()*global.map.width);
@@ -18,7 +18,7 @@ class PlayerModel {
 
     this.speed = 5;
 
-    this.size = 15;
+    this.size = 17;
 
     this.score = 5;
 
@@ -105,6 +105,7 @@ class PlayerModel {
   modelForClient () { // values to pass to client
     return {
       username: this.username,
+      king: this.king,
       x: this.x,
       y: this.y,
       score: this.score,
@@ -116,6 +117,9 @@ class PlayerModel {
   setScore (amount) {
     this.score = amount;
     this.size = (this.score * 3) + 3;
+
+    //determine the king
+    module.exports.findKing();
   }
 }
 
@@ -134,6 +138,28 @@ class Player {
     this.list[socket.id] = new PlayerModel(socket, username, room);
 
     console.log("Player " + socket.id + ", AKA " + username + " joined.");
+
+    this.findKing(); //find out if this player is king
+  }
+
+  findKing () {
+    var king = null;
+    for (var id in this.list) {
+      //set all to false
+      this.list[id].king = false;
+      var indexedPlayer = this.list[id];
+      //find highest score
+      if (king != null) {
+        if (indexedPlayer.score > king.score) {
+          king = indexedPlayer;
+        }
+      } else {
+        king = indexedPlayer;
+      }
+    }
+    if (king != null) {
+      this.list[king.id].king = true; //set king property of found king
+    }
   }
 
 

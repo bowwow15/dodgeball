@@ -21,6 +21,8 @@ canvas {
   background: whitesmoke;
 
   cursor: default;
+
+  image-rendering: pixelated;
 }
 
 #loading_screen, #death_screen {

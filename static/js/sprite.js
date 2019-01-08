@@ -56,6 +56,10 @@ var spritesToLoad = [
     src: "/static/img/background_grid.png",
     type: "image"
   }, {
+    name: "playerCrown",
+    src: "/static/img/crown.png",
+    type: "image"
+  }, {
     name: "deathSound",
     src: "/static/sound/death.mp3",
     type: "sound"

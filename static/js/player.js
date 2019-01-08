@@ -26,6 +26,13 @@ class Player {
     ctx.arc(x, y, player.size, 0, 2 * Math.PI);
     ctx.fill();
 
+    //draw crown if king
+    if (player.king) {
+      var crownImage = spriteList["playerCrown"].image;
+      ctx.beginPath();
+      ctx.drawImage(crownImage, 0, 0, crownImage.width, crownImage.height, x - 12.5, y - 25 - player.size, 25, 25);
+    }
+
     //draw kills
     ctx.beginPath();
     ctx.textAlign = "center";
