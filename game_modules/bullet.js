@@ -51,6 +51,10 @@ class Bullet {
             if (global.player.list[id] && global.player.list[this.player_id]) {
               //add kills
               global.player.list[this.player_id].setScore(global.player.list[this.player_id].score + global.player.list[id].score + 1);
+              global.player.list[this.player_id].socket.emit('textAlert', {
+                text: "You hit " + global.player.list[id].username,
+                room: global.player.list[this.player_id].room
+              });
             }
             global.player.list[id].die(id, global.player.list[this.player_id].username); //kill player, and send username of killer
           }

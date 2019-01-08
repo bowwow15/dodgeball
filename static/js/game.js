@@ -29,6 +29,12 @@ function showLogin () {
     map.update(data);
   });
 
+  socket.on('textAlert', function (data) {
+    if (data.room == Game.room) {
+      textDisplay.newAlert(data.text);
+    }
+  });
+
   socket.on('state', function (data) {
     if (gameRunning == false || data.room == Game.room) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -48,7 +54,8 @@ function showLogin () {
         player.draw(player_from_server, id);
       }
 
-      room.drawNumber(data.room);
+      textDisplay.drawRoomNumber(data.room);
+      textDisplay.drawAlerts();
     }
   });
 }
