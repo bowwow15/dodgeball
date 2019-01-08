@@ -15,17 +15,13 @@ class Player {
 
     ctx.lineWidth = 4;
 
-    if (player.color == "green") {
-      ctx.fillStyle = "black";
-    } else {
-      ctx.fillStyle = "white";
-    }
+    ctx.fillStyle = player.color;
     //reset motion blur
     ctx.globalAlpha = 1;
     ctx.beginPath();
     ctx.arc(x, y, player.size + 2, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.fillStyle = player.color;
+    ctx.fillStyle = "green";
     ctx.beginPath();
     ctx.arc(x, y, player.size, 0, 2 * Math.PI);
     ctx.fill();
