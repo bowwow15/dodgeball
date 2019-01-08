@@ -12,6 +12,7 @@ class Bullet {
       this.lastY = player.y;
 
       this.player_id = player.id;
+      this.username = player.username;
     }
 
     this.size = 5;
@@ -57,10 +58,7 @@ class Bullet {
               });
             }
             let killerUsername = null;
-            if (global.player.list[this.player_id]) {
-              killerUsername = global.player.list[this.player_id].username;
-            }
-            global.player.list[id].die(id, killerUsername); //kill player, and send username of killer
+            global.player.list[id].die(id, this.username); //kill player, and send username of killer
           }
         }
       }
