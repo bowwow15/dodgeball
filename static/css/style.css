@@ -20,7 +20,7 @@ canvas {
 
   background: whitesmoke;
 
-  cursor: crosshair;
+  cursor: default;
 }
 
 #loading_screen, #death_screen {
