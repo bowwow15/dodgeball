@@ -16,7 +16,6 @@ class Map {
 
     // draw background
     var pattern = ctx.createPattern(spriteList["hexPatternImg"].image, 'repeat');
-    ctx.fillStyle = pattern;
 
     // offset vars
     var offset_x = x;
@@ -24,28 +23,23 @@ class Map {
     var fill_x = canvas.width;
     var fill_y = canvas.height;
 
-    // offset
-    ctx.translate(offset_x, offset_y);
-
-    // draw
-    ctx.fillRect(-offset_x, -offset_y, fill_x, fill_y);
-
-    // undo offset
-    ctx.translate(-offset_x, -offset_y);
-
     //draw black tint
-    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.95)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     //draw box for map
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+    ctx.fillStyle = pattern;
 
     ctx.beginPath();
     ctx.lineWidth = 5;
     ctx.rect(x - player.size - ctx.lineWidth, y - player.size - ctx.lineWidth, this.width + ((player.size + ctx.lineWidth)*2), this.height + ((player.size + ctx.lineWidth)*2));
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "green";
+    // offset
+    ctx.translate(offset_x, offset_y);
     ctx.fill();
     ctx.stroke();
+    // undo offset
+    ctx.translate(-offset_x, -offset_y);
   }
 }
 

@@ -5,7 +5,7 @@ class TextDisplay {
 
   drawRoomNumber (number) {
     ctx.textAlign = "right";
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "20px Arial";
 
     ctx.beginPath();

@@ -15,7 +15,13 @@ class Player {
 
     ctx.lineWidth = 4;
 
-    ctx.fillStyle = "black";
+    if (player.color == "green") {
+      ctx.fillStyle = "black";
+    } else {
+      ctx.fillStyle = "white";
+    }
+    //reset motion blur
+    ctx.globalAlpha = 1;
     ctx.beginPath();
     ctx.arc(x, y, player.size + 2, 0, 2 * Math.PI);
     ctx.fill();
@@ -39,9 +45,12 @@ class Player {
     if (distance < player.size + 1) {
         //draw username
         ctx.font = "25px Arial";
+        ctx.fillStyle = "green";
         ctx.beginPath();
         ctx.fillText(player.username, x, y - player.size - 10);
     }
+
+    ctx.globalAlpha = Game.motionBlur;
   }
 }
 

@@ -53,7 +53,7 @@ function addSprite (name, src, type) {
 var spritesToLoad = [
   {
     name: "hexPatternImg",
-    src: "/static/img/background_grid.jpg",
+    src: "/static/img/background_grid.png",
     type: "image"
   }, {
     name: "deathSound",

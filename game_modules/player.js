@@ -22,7 +22,8 @@ class PlayerModel {
 
     this.score = 5;
 
-    this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
+    // this.color = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
+    this.color = "green";
 
     //server-only values
     this.keyW = false;

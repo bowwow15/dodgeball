@@ -4,6 +4,32 @@ var gameRunning = false;
 
 var Game = {
   room: 0,
+  motionBlur: 0.6,
+
+  stateUpdate: function (data) {
+    if (gameRunning == false || data.room == Game.room) {
+      ctx.globalAlpha = Game.motionBlur;
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
+      map.draw();
+
+      player.list = data.player;
+
+      for (var id in data.bullet) {
+        var bullet_from_server = data.bullet[id];
+
+        bullet.draw(bullet_from_server, id);
+      }
+
+      for (var id in data.player) {
+        var player_from_server = data.player[id];
+
+        player.draw(player_from_server, id);
+      }
+
+      textDisplay.drawRoomNumber(data.room);
+      textDisplay.drawAlerts();
+    }
+  }
 };
 
 function showLogin () {
@@ -36,27 +62,7 @@ function showLogin () {
   });
 
   socket.on('state', function (data) {
-    if (gameRunning == false || data.room == Game.room) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      map.draw();
-
-      player.list = data.player;
-
-      for (var id in data.bullet) {
-        var bullet_from_server = data.bullet[id];
-
-        bullet.draw(bullet_from_server, id);
-      }
-
-      for (var id in data.player) {
-        var player_from_server = data.player[id];
-
-        player.draw(player_from_server, id);
-      }
-
-      textDisplay.drawRoomNumber(data.room);
-      textDisplay.drawAlerts();
-    }
+    Game.stateUpdate(data);
   });
 }
 
