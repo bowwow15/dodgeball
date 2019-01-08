@@ -130,6 +130,7 @@ class Player {
 
   die (id) {
     delete this.list[id];
+    this.findKing();
   }
 
   new (socket, username) {
@@ -140,6 +141,28 @@ class Player {
     console.log("Player " + socket.id + ", AKA " + username + " joined.");
 
     this.findKing(); //find out if this player is king
+  }
+
+  updateLeaderboard () {
+    var leaderboard = {};
+    var unordered = []; //set empty lists
+    var self = this;
+
+    for (var id in this.list) { //fill in unordered list
+      if (self.list[id]) {
+        unordered.push({
+          username: self.list[id].username,
+          score: self.list[id].score
+        });
+      }
+    }
+
+    unordered.sort(function(a, b) {
+        return b.score - a.score;
+    }); //descending
+    var ordered = unordered;
+
+    global.io.emit('leaderboard', {ordered: ordered});
   }
 
   findKing () {
@@ -160,6 +183,8 @@ class Player {
     if (king != null) {
       this.list[king.id].king = true; //set king property of found king
     }
+
+    this.updateLeaderboard();
   }
 
 

@@ -81,7 +81,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('disconnect', function () {
-    delete player.list[socket.id];
+    global.player.die(socket.id);
 
     console.log("Player " + socket.id + " disconnected.");
   });

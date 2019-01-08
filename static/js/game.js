@@ -28,6 +28,7 @@ var Game = {
 
       textDisplay.drawRoomNumber(data.room);
       textDisplay.drawAlerts();
+      leaderboard.draw();
     }
   }
 };
@@ -53,6 +54,10 @@ function showLogin () {
 
   socket.on('map', function (data) {
     map.update(data);
+  });
+
+  socket.on('leaderboard', function (data) {
+    leaderboard.update(data);
   });
 
   socket.on('textAlert', function (data) {
