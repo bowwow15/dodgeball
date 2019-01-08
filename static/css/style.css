@@ -49,6 +49,10 @@ canvas {
   vertical-align: middle;
 }
 
+#killer {
+  margin-bottom: 10px;
+}
+
 #username {
   position: fixed;
   top: 30%;

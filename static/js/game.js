@@ -80,7 +80,10 @@ function startGame (username) {
     gameRunning = true;
   });
 
-  socket.on('dead', function () {
+  socket.on('dead', function (data) {
+    if (data.killer != null) {
+      $("#killer").html(data.killer + " killed you.")
+    }
     spriteList["deathSound"].play();
     $("#death_screen").fadeIn(3000);
   });

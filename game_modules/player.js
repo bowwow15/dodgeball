@@ -78,11 +78,11 @@ class PlayerModel {
     }
   }
 
-  die (id) {
+  die (id, killer) {
     if (!module.exports.list[id].admin) {
       global.room.list[module.exports.list[id].room].occupants -= 1; //remove from room
 
-      module.exports.list[id].socket.emit('dead'); //emit to client
+      module.exports.list[id].socket.emit('dead', {killer: killer}); //emit to client
       console.log("Player " + id + " died."); //console
       module.exports.die(id); //delete from list
     }
@@ -90,7 +90,7 @@ class PlayerModel {
 
   shoot (data) {
     if (this.score < 1) {
-      this.die(this.id);
+      this.die(this.id, null);
     }
 
     bullet.new(this, bullet.current_id, data.angle, 15, this.color);
