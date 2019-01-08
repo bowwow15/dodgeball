@@ -48,14 +48,10 @@ class Bullet {
         if (bool_collision) {
           if (id != this.player_id && global.player.list[id].admin == false) {
             if (global.player.list[id] && global.player.list[this.player_id]) {
-              global.player.list[this.player_id].score += global.player.list[id].score;
+              //add kills
+              global.player.list[this.player_id].setScore(global.player.list[this.player_id].score + global.player.list[id].score + 1);
             }
             global.player.list[id].die(id);
-
-            //add kills
-            if (global.player.list[this.player_id]) {
-              global.player.list[this.player_id].score += 1;
-            }
           }
         }
       }

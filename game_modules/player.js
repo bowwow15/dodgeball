@@ -90,7 +90,7 @@ class PlayerModel {
     }
 
     bullet.new(this, bullet.current_id, data.angle, 15, this.color);
-    this.score -= 1;
+    this.setScore(this.score - 1);
   }
 
   becomeAdmin () {
@@ -107,6 +107,11 @@ class PlayerModel {
       color: this.color,
       size: this.size
     }
+  }
+
+  setScore (amount) {
+    this.score = amount;
+    this.size = (this.score * 3) + 3;
   }
 }
 
