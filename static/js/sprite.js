@@ -67,6 +67,10 @@ var spritesToLoad = [
     name: "shootSound",
     src: "/static/sound/throw.mp3",
     type: "sound"
+  }, {
+    name: "alertSound",
+    src: "/static/sound/alert.mp3",
+    type: "sound"
   },
 ];
 

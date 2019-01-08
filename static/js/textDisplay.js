@@ -17,6 +17,7 @@ class TextDisplay {
       text: text,
       expiration: Date.now() + 3000
     });
+    spriteList["alertSound"].play();
   }
 
   drawAlerts () {
