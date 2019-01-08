@@ -60,7 +60,7 @@ class Bullet {
             if (global.player.list[this.player_id]) {
               killerUsername = global.player.list[this.player_id].username;
             }
-            global.player.list[id].die(id, global.player.list[this.player_id].username); //kill player, and send username of killer
+            global.player.list[id].die(id, killerUsername); //kill player, and send username of killer
           }
         }
       }
