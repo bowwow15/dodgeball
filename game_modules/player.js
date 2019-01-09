@@ -130,8 +130,9 @@ class Player {
 
   die (id) {
     if (this.list[id]) {
-      this.findKing(this.list[id].room);
+      var room = this.list[id].room;
       delete this.list[id];
+      this.findKing(room);
     }
   }
 

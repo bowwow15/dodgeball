@@ -56,11 +56,12 @@ global.room.new();
 
 io.on('connection', function (socket) {
   socket.on('new_player', function (data) {
-    player.new(socket, filter.clean(data.username.trim().substr(0, 12)));
     socket.emit('player_accepted');
     socket.emit('room', global.room.current);
 
     socket.join('room_' + global.room.current); //join the channel for given room
+
+    player.new(socket, filter.clean(data.username.trim().substr(0, 12)));
   });
 
   socket.on("admin_password", function (password) {
