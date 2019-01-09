@@ -8,6 +8,10 @@ var server = http.Server(app);
 global.io = socketIO(server);
 var io = global.io;
 
+//profanity filter
+var Filter = require('bad-words'),
+    filter = new Filter();
+
 // Game Dependencies
 global.player = require('./game_modules/player.js');
 global.bullet = require('./game_modules/bullet.js');
@@ -47,7 +51,7 @@ global.room.new();
 
 io.on('connection', function (socket) {
   socket.on('new_player', function (data) {
-    player.new(socket, data.username.trim().substr(0, 12));
+    player.new(socket, filter.clean(data.username.trim().substr(0, 12)));
     socket.emit('player_accepted');
     socket.emit('room', global.room.current);
   });
