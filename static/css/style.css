@@ -12,6 +12,8 @@
 
 html {
   background-color: black;
+  color: white;
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
 }
 
 canvas {
@@ -23,6 +25,30 @@ canvas {
   cursor: default;
 
   image-rendering: pixelated;
+}
+
+p {
+  text-align: left;
+  width: fit-content;
+  width: -moz-fit-content;
+  max-width: 50%;
+}
+
+.bigText {
+  font-size: 2em;
+}
+
+button {
+  transition: all 0.1s ease-out;
+  padding: 12px;
+  font-size: 2em;
+  background-color: rgba(0,0,0,0);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+} button:hover {
+  background-color: green;
 }
 
 #loading_screen, #death_screen {
@@ -47,17 +73,54 @@ canvas {
   color: red;
   font-size: 3em;
   text-align: center;
-  margin-top: 20%;
+  margin-top: 15%;
   vertical-align: middle;
 }
 
 #killer {
   margin-bottom: 20px;
+  line-height: 150px;
+}
+
+#welcomeSplash {
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  color: white;
+
+  position: fixed;
+
+  left: 50%;
+  transform: translateX(-50%);
+  top: 25%;
+
+  z-index: 200;
+}
+
+.title {
+  color: white;
+  font-size: 4em;
+}
+
+.howtoplayTitle {
+  text-align: center;
+  margin: 15px;
+}
+
+#howtoplay {
+  position: fixed;
+
+  color: white;
+  font-size: 1.5em;
+
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 15%;
+
+  z-index: 200;
 }
 
 #username {
   position: fixed;
-  top: 30%;
+  top: 40%;
   left: 50%;
   transform: translateX(-50%);
 

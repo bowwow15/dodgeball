@@ -37,6 +37,9 @@ app.get('/', function(request, response) {
 app.get('/admin', function(request, response) {
   response.sendFile(path.join(__dirname, '/static/index_admin.html'));
 });
+app.get('/howtoplay', function(request, response) {
+  response.sendFile(path.join(__dirname, '/static/howtoplay.html'));
+});
 
 // Starts the server.
 server.listen(PORT, function() {

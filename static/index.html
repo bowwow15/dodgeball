@@ -17,6 +17,8 @@
     });
   </script>
   <!-- End Google AdSense -->
+
+  <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
   </head>
   <body onresize="resizeWindow()">
     <script>
@@ -27,9 +29,13 @@
     <div id="death_screen" class="noselect" style="display: none;"><div id="death_text"><span id="killer">YOU'RE OUT</span><br><a href="" class="tryAgainButton">TRY AGAIN</a></div></div>
 
     <center>
+      <div id="welcomeSplash" style="display: none;">
+        <h1 class="noselect title">Dodgeball</h1>
+      </div>
       <form action="javascript:enterUsername()">
         <input autofocus maxlength="12" id="username" placeholder="Enter a Name" style="display: none;">
       </form>
+      <a href="/howtoplay" id="howtoplay" style="display: none;">How to Play</a>
     </center>
 
     <canvas id="canvas"></canvas>

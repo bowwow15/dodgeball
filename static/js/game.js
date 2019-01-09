@@ -45,7 +45,9 @@ function showLogin () {
   $("#loading_screen").fadeOut(1500);
 
   window.setTimeout(function () {
+    $("#welcomeSplash").fadeIn(500);
     $("#username").fadeIn(500);
+    $("#howtoplay").fadeIn(500);
   }, 1000);
 
   socket.on('room', function (room) {
@@ -78,7 +80,9 @@ function enterUsername () {
     window.localStorage.setItem('username', username);
     startGame(username);
     $("#username").blur();
+    $("#welcomeSplash").fadeOut(500);
     $("#username").fadeOut(500);
+    $("#howtoplay").fadeOut(500);
   }
 }
 
