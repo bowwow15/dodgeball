@@ -9,8 +9,10 @@ global.io = socketIO(server);
 var io = global.io;
 
 //profanity filter
-var Filter = require('bad-words'),
-    filter = new Filter();
+var Filter = require('bad-words');
+global.filter = new Filter();
+
+var filter = global.filter;
 
 // Game Dependencies
 global.player = require('./game_modules/player.js');
@@ -57,6 +59,8 @@ io.on('connection', function (socket) {
     player.new(socket, filter.clean(data.username.trim().substr(0, 12)));
     socket.emit('player_accepted');
     socket.emit('room', global.room.current);
+
+    socket.join('room_' + global.room.current); //join the channel for given room
   });
 
   socket.on("admin_password", function (password) {
@@ -74,14 +78,22 @@ io.on('connection', function (socket) {
     }
   });
 
+  socket.on('chat_message', function (data) {
+    if (player.list[socket.id]) {
+      global.room.sendChat(player.list[socket.id], data.text);
+    }
+  });
+
   socket.on('mousedown', function (data) {
     if (player.list[socket.id]) player.list[socket.id].shoot(data);
   });
 
   socket.on('sound_effect', function (sound_effect) {
     if (global.player.list[socket.id]) {
-      io.emit('sound_effect', {
-        room: global.player.list[socket.id].room,
+      var soundEffectRoom = global.player.list[socket.id].room;
+
+      io.to('room_' + soundEffectRoom).emit('sound_effect', {
+        room: soundEffectRoom,
         sound_effect: sound_effect
       });
     }
@@ -104,7 +116,7 @@ io.on('connection', function (socket) {
 setInterval(function() {
   for (var id in global.room.list) {
     var room = id;
-    io.sockets.emit('state', {
+    io.to('room_' + room).emit('state', {
       room: room,
       player: player.getStateForClient(room),
       bullet: bullet.getList(room)

@@ -7,29 +7,27 @@ var Game = {
   motionBlur: 0.6,
 
   stateUpdate: function (data) {
-    if (gameRunning == false || data.room == Game.room) {
-      ctx.globalAlpha = Game.motionBlur;
-      // ctx.clearRect(0, 0, canvas.width, canvas.height);
-      map.draw();
+    ctx.globalAlpha = Game.motionBlur;
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    map.draw();
 
-      player.list = data.player;
+    player.list = data.player;
 
-      for (var id in data.bullet) {
-        var bullet_from_server = data.bullet[id];
+    for (var id in data.bullet) {
+      var bullet_from_server = data.bullet[id];
 
-        bullet.draw(bullet_from_server, id);
-      }
-
-      for (var id in data.player) {
-        var player_from_server = data.player[id];
-
-        player.draw(player_from_server, id);
-      }
-
-      textDisplay.drawRoomNumber(data.room);
-      textDisplay.drawAlerts();
-      leaderboard.draw();
+      bullet.draw(bullet_from_server, id);
     }
+
+    for (var id in data.player) {
+      var player_from_server = data.player[id];
+
+      player.draw(player_from_server, id);
+    }
+
+    textDisplay.drawRoomNumber(data.room);
+    textDisplay.drawAlerts();
+    leaderboard.draw();
   }
 };
 
@@ -63,9 +61,7 @@ function showLogin () {
   });
 
   socket.on('textAlert', function (data) {
-    if (data.room == Game.room) {
-      textDisplay.newAlert(data.text);
-    }
+    textDisplay.newAlert(data.text);
   });
 
   socket.on('state', function (data) {
@@ -90,6 +86,9 @@ function startGame (username) {
   socket.on('message', function(data) {
     console.log(data);
   });
+
+  //show chat room
+  $("#chat").show();
 
   socket.emit('new_player', {username: username});
 

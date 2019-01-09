@@ -1,8 +1,17 @@
 function changeKeyState (event, bool) {
-  socket.emit('keypress', {
-    keyCode: event.keyCode,
-    bool: bool
-  });
+  //if F key, toggle chat
+  if (event.keyCode == 70 && bool == false && !$("#chatInput").is(":focus") && gameRunning) {
+    $("#chatInput").show();
+    $("#chatInput").focus();
+    $("#chatInput").val('');
+  } else {
+    if (!$("#chatInput").is(":focus")) { //tests if chat input is focued before sending keys to server
+      socket.emit('keypress', {
+        keyCode: event.keyCode,
+        bool: bool
+      });
+    }
+  }
 }
 
 window.addEventListener("keydown", function (event) { changeKeyState(event, true); });
@@ -12,7 +21,7 @@ window.addEventListener("mousedown", function (event) {
   if (gameRunning) {
     socket.emit('sound_effect', "shootSound");
   }
-  
+
   var angle = 0;
   angle = Math.atan2(event.clientY - (canvas.height / 2), event.clientX - (canvas.width / 2));
 

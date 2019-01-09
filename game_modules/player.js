@@ -119,7 +119,7 @@ class PlayerModel {
     this.size = (this.score * 3) + 3;
 
     //determine the king
-    module.exports.findKing();
+    module.exports.findKing(this.room);
   }
 }
 
@@ -129,8 +129,10 @@ class Player {
   }
 
   die (id) {
-    delete this.list[id];
-    this.findKing();
+    if (this.list[id]) {
+      this.findKing(this.list[id].room);
+      delete this.list[id];
+    }
   }
 
   new (socket, username) {
@@ -140,20 +142,22 @@ class Player {
 
     console.log("Player " + socket.id + ", AKA " + username + " joined.");
 
-    this.findKing(); //find out if this player is king
+    this.findKing(room); //find out if this player is king
   }
 
-  updateLeaderboard () {
+  updateLeaderboard (room) {
     var leaderboard = {};
     var unordered = []; //set empty lists
     var self = this;
 
     for (var id in this.list) { //fill in unordered list
       if (self.list[id]) {
-        unordered.push({
-          username: self.list[id].username,
-          score: self.list[id].score
-        });
+        if (self.list[id].room == room) { // if player is in same room
+          unordered.push({
+            username: self.list[id].username,
+            score: self.list[id].score
+          });
+        }
       }
     }
 
@@ -162,29 +166,33 @@ class Player {
     }); //descending
     var ordered = unordered;
 
-    global.io.emit('leaderboard', {ordered: ordered});
+    global.io.to('room_' + room).emit('leaderboard', {ordered: ordered});
   }
 
-  findKing () {
+  findKing (room) {
     var king = null;
     for (var id in this.list) {
-      //set all to false
-      this.list[id].king = false;
+      //set all in same room to false
+      if (this.list[id].room == room) {
+        this.list[id].king = false;
+      }
       var indexedPlayer = this.list[id];
       //find highest score
-      if (king != null) {
-        if (indexedPlayer.score > king.score) {
+      if (indexedPlayer.room == room) {
+        if (king != null) {
+          if (indexedPlayer.score > king.score) {
+            king = indexedPlayer;
+          }
+        } else {
           king = indexedPlayer;
         }
-      } else {
-        king = indexedPlayer;
       }
     }
     if (king != null) {
       this.list[king.id].king = true; //set king property of found king
     }
 
-    this.updateLeaderboard();
+    this.updateLeaderboard(room);
   }
 
 

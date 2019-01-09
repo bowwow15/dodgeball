@@ -38,11 +38,20 @@
       <a href="/howtoplay" id="howtoplay" style="display: none;">How to Play</a>
     </center>
 
+    <div id="chat" class="noselect" style="display: none;">
+      <div id="chatFeed"></div><br>
+      <form autocomplete="off" action="javascript:submitChat()">
+        <input maxlength="50" style="display: none;" id="chatInput" required autocomplete="off">
+      </form>
+    </div>
+
     <canvas id="canvas"></canvas>
+    <script src="/static/js/keypress.js"></script>
     <script src="/static/js/textDisplay.js"></script>
     <script src="/static/js/map.js"></script>
     <script src="/static/js/leaderboard.js"></script>
     <script src="/static/js/game.js"></script>
+    <script src="/static/js/chat.js"></script>
 
     <script src="/static/js/canvas.js"></script>
     <script src="/static/js/sprite.js"></script>
@@ -51,7 +60,6 @@
     <script src="/static/js/bullet.js"></script>
     <script src="/static/js/view.js"></script>
 
-    <script src="/static/js/keypress.js"></script>
     <script src="/static/js/server_alert.js"></script>
 
     <!-- Copyright 2019 Brooks Jeremiah Wibberding -->

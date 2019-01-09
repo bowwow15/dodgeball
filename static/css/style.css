@@ -20,7 +20,8 @@ canvas {
   position: fixed;
   left:0;top:0;
 
-  background: whitesmoke;
+  background: url(/static/img/background_grid.png);
+  background-repeat: repeat;
 
   cursor: default;
 
@@ -132,6 +133,20 @@ button {
   border-radius: 5px;
 
   z-index: 200;
+}
+
+#chat {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  z-index: 200;
+}
+
+#chatInput {
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  border: 1px solid green;
 }
 
 .tryAgainButton {

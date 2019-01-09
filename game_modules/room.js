@@ -2,6 +2,8 @@ class RoomModel {
   constructor (maxNumber) {
     this.occupants = 0;
     this.maxNumber = maxNumber;
+
+    this.chat = [];
   }
 
   newPlayer () {
@@ -11,7 +13,7 @@ class RoomModel {
 
 class Room {
   constructor () {
-    this.maximumPlayers = 15;
+    this.maximumPlayers = 12;
     this.current = 0;
 
     this.list = {};
@@ -34,6 +36,14 @@ class Room {
 
   getCurrent () {
     return this.current;
+  }
+
+
+  sendChat (player, text) {
+    global.io.to('room_' + player.room).emit('chatFeed', {
+      username: player.username,
+      text: global.filter.clean(text)
+    });
   }
 }
 
