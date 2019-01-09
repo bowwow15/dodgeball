@@ -16,7 +16,7 @@ class PlayerModel {
     this.x = Math.floor(Math.random()*global.map.width);
     this.y = Math.floor(Math.random()*global.map.height);
 
-    this.speed = 5;
+    this.speed = 7;
 
     this.size = 17;
 
