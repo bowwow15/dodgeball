@@ -117,11 +117,13 @@ io.on('connection', function (socket) {
 setInterval(function() {
   for (var id in global.room.list) {
     var room = id;
-    io.to('room_' + room).emit('state', {
-      room: room,
-      player: player.getStateForClient(room),
-      bullet: bullet.getList(room)
-    });
+    if (global.room.list[id].occupants > 0) {
+      io.to('room_' + room).emit('state', {
+        room: room,
+        player: player.getStateForClient(room),
+        bullet: bullet.getList(room)
+      });
+    }
   }
 }, 1000 / 30);
 
