@@ -125,14 +125,16 @@ button {
   left: 50%;
   transform: translateX(-50%);
 
+  z-index: 200;
+} #username > input {
   background-color: black;
   color: green;
   padding: 12px;
   font-size: 2em;
   border: 1px solid green;
   border-radius: 5px;
-
-  z-index: 200;
+} #username > button {
+  background-color: rgba(0,0,0,0.85);
 }
 
 #chat {
