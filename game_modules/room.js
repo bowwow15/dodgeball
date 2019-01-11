@@ -44,6 +44,8 @@ class Room {
       username: player.username,
       text: global.filter.clean(text)
     });
+
+    console.log("" + player.username + ": " + text);
   }
 }
 
