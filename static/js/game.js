@@ -70,7 +70,7 @@ function showLogin () {
 }
 
 function enterUsername () {
-  var username = $("#username").val();
+  var username = $("#usernameField").val();
 
   if (username.length > 0) {
     window.localStorage.setItem('username', username);
