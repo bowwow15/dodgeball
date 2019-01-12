@@ -18,6 +18,7 @@
     gtag('config', 'UA-132340776-1');
   </script>
 
+
   <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
   </head>
   <body onresize="resizeWindow()">
@@ -29,10 +30,22 @@
     <div id="death_screen" class="noselect" style="display: none;"><div id="death_text"><span id="killer">YOU'RE OUT</span><br><a href="" class="tryAgainButton">TRY AGAIN</a></div></div>
 
     <center>
-      <form action="javascript:enterUsername()">
-        <input autofocus id="username" placeholder="Enter a Name" style="display: none;">
+      <div id="welcomeSplash" style="display: none;">
+        <h1 class="noselect title">Dodgeball</h1>
+      </div>
+      <form action="javascript:enterUsername()" id="username" style="display: none;">
+        <input autofocus maxlength="12" id="usernameField" placeholder="Enter a Name">
+        <button type="submit">Start</button>
       </form>
+      <a href="/howtoplay" id="howtoplay" style="display: none;">How to Play</a>
     </center>
+
+    <div id="chat" class="noselect" style="display: none;">
+      <div id="chatFeed"></div><br>
+      <form autocomplete="off" action="javascript:submitChat()">
+        <input maxlength="50" style="display: none;" id="chatInput" required autocomplete="off">
+      </form>
+    </div>
 
     <canvas id="canvas"></canvas>
     <script src="/static/js/keypress.js"></script>
@@ -50,5 +63,7 @@
     <script src="/static/js/view.js"></script>
 
     <script src="/static/js/server_alert.js"></script>
+
+    <!-- Copyright 2019 Brooks Jeremiah Wibberding -->
   </body>
 </html>

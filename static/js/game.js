@@ -89,6 +89,11 @@ function startGame (username) {
 
   //show chat room
   $("#chat").show();
+  //"Press F to chat"
+  $("#chatFeed").html("Press F to chat");
+  window.setTimeout(function () {
+    $("#chatFeed").html("");
+  }, 7000);
 
   socket.emit('new_player', {username: username});
 

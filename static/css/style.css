@@ -139,6 +139,10 @@ button {
   display: inline-block;
 }
 
+#chatFeed {
+  max-width: 500px;
+}
+
 #chat {
   position: fixed;
   bottom: 20px;
