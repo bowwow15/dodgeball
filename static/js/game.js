@@ -36,7 +36,7 @@ function showLogin () {
 
   var storedUsername = window.localStorage.getItem('username');
   if (storedUsername) {
-    $("#username").val(storedUsername);
+    $("#usernameField").val(storedUsername);
   }
 
   //hide loading screen
