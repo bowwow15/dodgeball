@@ -113,21 +113,18 @@ io.on('connection', function (socket) {
   map.update();
 });
 
-// EMIT GAME STATE
 setInterval(function() {
+  // EMIT PLAYER STATE
   for (var id in global.room.list) {
     var room = id;
-    if (global.room.list[id].occupants > 0) {
-      io.to('room_' + room).emit('state', {
-        room: room,
-        player: player.getStateForClient(room),
-        bullet: bullet.getList(room)
-      });
-    }
+    io.to('room_' + room).emit('state', {
+      room: room,
+      player: player.getStateForClient(room),
+      bullet: bullet.getList(room)
+    });
   }
-}, 1000 / 30);
 
-setInterval(function() {
+  //STEP BULLETS
   for (var id in player.list) {
     player.list[id].triggerWhenPressed();
   }
