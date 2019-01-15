@@ -36,40 +36,6 @@ class Bullet {
     }
   }
 
-  collisionCheck (ax, ay, asize, bx, by, bsize) {
-    var dx = ax - bx;
-    var dy = ay - by;
-    var distance = Math.sqrt(dx * dx + dy * dy);
-
-    if (distance < asize + bsize) {
-      return true
-    } else {
-      return false;
-    }
-  }
-
-  checkCollisionWithObsticles (x, y, size, movement) {
-    x += movement.x;
-    y += movement.y;
-
-    var collision = false;
-    var adjustedMovement = {x: 0, y: 0};
-
-    var self = this;
-    global.room.list[this.room].obsticles.forEach(function (element, index) {
-      if (collision == false) {
-        adjustedMovement = movement;
-
-        if (self.collisionCheck(x, y, self.size, element.x, element.y, element.size)) {
-          collision = true;
-          adjustedMovement = {x: 0, y: 0};
-        }
-      }
-    });
-
-    return collision;
-  }
-
   step () {
     if (Date.now() < this.expire) {
       this.lastX = this.x;
@@ -89,7 +55,7 @@ class Bullet {
               global.player.list[this.player_id].setScore(global.player.list[this.player_id].score + global.player.list[id].score + 1);
               global.player.list[this.player_id].socket.emit('textAlert', {
                 text: "You hit " + global.player.list[id].username,
-                room: global.player.list[this.player_id].room
+                room: this.room
               });
             }
             let killerUsername = null;
@@ -98,7 +64,7 @@ class Bullet {
         }
       }
       //check obsticle collision
-      if (this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:0})) {
+      if (global.map.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:0}, this.room)) {
         delete module.exports.list[this.id];
       }
       return true;

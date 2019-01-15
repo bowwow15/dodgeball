@@ -13,8 +13,13 @@ class PlayerModel {
     this.king = false;
     this.admin = false;
 
-    this.x = Math.floor(Math.random()*global.map.width);
-    this.y = Math.floor(Math.random()*global.map.height);
+    this.x = 0;
+    this.y = 0;
+    this.setCoordinates();
+
+    while (global.map.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:0}, this.room)) {
+      this.setCoordinates();
+    }
 
     this.speed = 7;
 
@@ -29,6 +34,11 @@ class PlayerModel {
     this.keyA = false;
     this.keyS = false;
     this.keyD = false;
+  }
+
+  setCoordinates () {
+    this.x = Math.floor(Math.random()*global.map.width);
+    this.y = Math.floor(Math.random()*global.map.height);
   }
 
   move (x, y, map) {
