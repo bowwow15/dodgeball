@@ -119,7 +119,7 @@ io.on('connection', function (socket) {
 
 setInterval(function() {
   // EMIT PLAYER STATE
-  for (var id in global.room.list) {
+  for (var id in global.room.clientList) {
     var room = id;
     io.to('room_' + room).emit('state', {
       room: room,

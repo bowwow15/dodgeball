@@ -209,6 +209,13 @@ class Player {
     console.log("Player " + socket.id + ", AKA " + username + " joined.");
 
     this.findKing(room); //find out if this player is king
+
+    //construct player list to send to client
+    for (var id in global.room.list) {
+      if (global.room.list[id].occupants > 0) {
+        global.room.clientList[id] = global.room.list[id];
+      }
+    }
   }
 
   updateLeaderboard (room) {

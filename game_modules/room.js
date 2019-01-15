@@ -27,6 +27,8 @@ class Room {
     this.current = 0;
 
     this.list = {};
+
+    this.clientList = {};
   }
 
   new () {
