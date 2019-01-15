@@ -28,6 +28,7 @@ var Game = {
     textDisplay.drawRoomNumber(data.room);
     textDisplay.drawAlerts();
     leaderboard.draw();
+    minimap.draw();
   }
 };
 
