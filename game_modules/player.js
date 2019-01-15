@@ -211,6 +211,7 @@ class Player {
     this.findKing(room); //find out if this player is king
 
     //construct player list to send to client
+    global.room.clientList = {};
     for (var id in global.room.list) {
       if (global.room.list[id].occupants > 0) {
         global.room.clientList[id] = global.room.list[id];
