@@ -37,10 +37,12 @@ class Minimap {
     //draw player
     var myPlayer = player.list[socket.id];
 
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.minimapOrigin.x + (myPlayer.x / xRatio), this.minimapOrigin.y + (myPlayer.y / yRatio), (myPlayer.size / xyRatio) + 1, 0, 2 * Math.PI);
-    ctx.fill();
+    if (player.list[socket.id]) {
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(this.minimapOrigin.x + (myPlayer.x / xRatio), this.minimapOrigin.y + (myPlayer.y / yRatio), (myPlayer.size / xyRatio) + 1, 0, 2 * Math.PI);
+      ctx.fill();
+    }
   }
 }
 
