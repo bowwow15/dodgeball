@@ -62,6 +62,16 @@ io.on('connection', function (socket) {
     socket.join('room_' + global.room.current); //join the channel for given room
 
     player.new(socket, filter.clean(data.username.trim().substr(0, 12)));
+
+    //emit map dimensions
+    var playerMapInterval = setInterval(function () {
+      if (global.player.list[socket.id]) {
+        map.update(global.player.list[socket.id].room);
+      } else {
+        clearInterval(playerMapInterval);
+      }
+    }, 1000);
+    map.update(global.player.list[socket.id].room);
   });
 
   socket.on("admin_password", function (password) {
@@ -105,12 +115,6 @@ io.on('connection', function (socket) {
 
     console.log("Player " + socket.id + " disconnected.");
   });
-
-  //emit map dimensions
-  setInterval(function () {
-    map.update();
-  }, 1000);
-  map.update();
 });
 
 setInterval(function() {

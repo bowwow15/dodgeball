@@ -1,5 +1,6 @@
 class Bullet {
-  constructor (player, angle, speed = 15, color = "black", room) {
+  constructor (player, angle, speed = 15, color = "black", room, id) {
+    this.id = id;
     this.room = room;
     this.rotation = angle;
     this.speed = 40;
@@ -35,6 +36,40 @@ class Bullet {
     }
   }
 
+  collisionCheck (ax, ay, asize, bx, by, bsize) {
+    var dx = ax - bx;
+    var dy = ay - by;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < asize + bsize) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
+  checkCollisionWithObsticles (x, y, size, movement) {
+    x += movement.x;
+    y += movement.y;
+
+    var collision = false;
+    var adjustedMovement = {x: 0, y: 0};
+
+    var self = this;
+    global.room.list[this.room].obsticles.forEach(function (element, index) {
+      if (collision == false) {
+        adjustedMovement = movement;
+
+        if (self.collisionCheck(x, y, self.size, element.x, element.y, element.size)) {
+          collision = true;
+          adjustedMovement = {x: 0, y: 0};
+        }
+      }
+    });
+
+    return collision;
+  }
+
   step () {
     if (Date.now() < this.expire) {
       this.lastX = this.x;
@@ -62,6 +97,10 @@ class Bullet {
           }
         }
       }
+      //check obsticle collision
+      if (this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:0})) {
+        delete module.exports.list[this.id];
+      }
       return true;
     } else {
       return false;
@@ -75,7 +114,7 @@ module.exports = {
   new: function (player, id, angle, speed, color) {
     if (player) {
       var room = player.room;
-      this.list[id] = new Bullet(player, angle, speed, color, room);
+      this.list[id] = new Bullet(player, angle, speed, color, room, id);
       this.current_id += 1;
     }
   },

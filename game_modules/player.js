@@ -50,13 +50,68 @@ class PlayerModel {
     }
   }
 
+  collisionCheck (ax, ay, asize, bx, by, bsize) {
+    var dx = ax - bx;
+    var dy = ay - by;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < asize + bsize) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
+  checkCollisionWithObsticles (x, y, size, movement, bullet = false) {
+    x += movement.x;
+    y += movement.y;
+
+    var collision = false;
+    var adjustedMovement = {x: 0, y: 0};
+
+    var self = this;
+    global.room.list[this.room].obsticles.forEach(function (element, index) {
+      if (collision == false) {
+        adjustedMovement = movement;
+
+        if (self.collisionCheck(x, y, self.size, element.x, element.y, element.size)) {
+          collision = true;
+          adjustedMovement = {x: 0, y: 0};
+        }
+      }
+    });
+
+    if (bullet) {
+      return collision;
+    } else {
+      return adjustedMovement;
+    }
+  }
+
   triggerWhenPressed () {
     var movement = {x:0, y:0};
 
-    if (this.keyW) {movement.y -= this.speed;}
-    if (this.keyA) {movement.x -= this.speed;}
-    if (this.keyS) {movement.y += this.speed;}
-    if (this.keyD) {movement.x += this.speed;}
+    if (this.keyW) {
+      //test obsticle collision
+      let adjustedMovement = this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:-this.speed});
+      movement.x += adjustedMovement.x;
+      movement.y += adjustedMovement.y;
+    }
+    if (this.keyA) {
+      let adjustedMovement = this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:-this.speed,y:0});
+      movement.x += adjustedMovement.x;
+      movement.y += adjustedMovement.y;
+    }
+    if (this.keyS) {
+      let adjustedMovement = this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:0,y:this.speed});
+      movement.x += adjustedMovement.x;
+      movement.y += adjustedMovement.y;
+    }
+    if (this.keyD) {
+      let adjustedMovement = this.checkCollisionWithObsticles(this.x, this.y, this.size, {x:this.speed,y:0});
+      movement.x += adjustedMovement.x;
+      movement.y += adjustedMovement.y;
+    }
 
     this.move(movement.x, movement.y, global.map);
   }

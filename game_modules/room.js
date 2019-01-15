@@ -4,6 +4,16 @@ class RoomModel {
     this.maxNumber = maxNumber;
 
     this.chat = [];
+
+    this.obsticles = [];
+    for (var i = 0; i < 45; i++) {
+      this.obsticles.push({
+        x: global.map.getRandomLocation().x,
+        y: global.map.getRandomLocation().y,
+
+        size: Math.floor(Math.random() * (25 - 5)) + 5
+      });
+    }
   }
 
   newPlayer () {

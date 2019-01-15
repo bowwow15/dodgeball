@@ -3,11 +3,15 @@ class Map {
     //default values to be overwritten
     this.width = 500;
     this.height = 500;
+
+    this.obsticles = [];
   }
 
-  update (map) {
-    this.width = map.width;
-    this.height = map.height;
+  update (data) {
+    this.width = data.map.width;
+    this.height = data.map.height;
+
+    this.obsticles = data.obsticles;
   }
 
   draw () {
@@ -40,6 +44,25 @@ class Map {
     ctx.stroke();
     // undo offset
     ctx.translate(-offset_x, -offset_y);
+
+    //draw obsticles
+    this.obsticles.forEach(function (element, index) {
+      let x = element.x + view.get().x,
+          y = element.y + view.get().y,
+          size = element.size;
+
+      ctx.fillStyle = "grey";
+
+      ctx.beginPath();
+      ctx.arc(x, y, size + 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = "white";
+
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, 2 * Math.PI);
+      ctx.fill();
+    });
   }
 }
 
